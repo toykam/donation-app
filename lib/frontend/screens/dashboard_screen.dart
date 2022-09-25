@@ -1,4 +1,5 @@
 
+import 'package:donation/frontend/screens/campaign_detail_screen.dart';
 import 'package:donation/frontend/styles/colors..dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -260,108 +261,112 @@ class DashboardScreen extends StatelessWidget {
                       child: Row(
                         children: [
                           ...List.generate(5, (index) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16),
-                                  border: Border.all(
+                            return InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) {
+                                    return CampaignDetailScreen(
+                                      tag: "campaign_$index",
+                                    );
+                                  },
+                                ));
+                              },
+                              borderRadius: BorderRadius.circular(16),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16),
+                                    border: Border.all(
                                       color: const Color(0xFFECF0F5),
                                       width: 1
-                                  )
-                              ),
-                              padding: const EdgeInsets.fromLTRB(20, 20, 20, 21),
-                              margin: const EdgeInsets.only(right: 16),
-                              constraints: const BoxConstraints(
-                                maxWidth: 275
-                              ),
-                              child: Column(
-                                children: [
+                                    )
+                                ),
+                                padding: const EdgeInsets.fromLTRB(20, 20, 20, 21),
+                                margin: const EdgeInsets.only(right: 16),
+                                constraints: const BoxConstraints(
+                                  maxWidth: 275
+                                ),
+                                child: Column(
+                                  children: [
 
-                                  Stack(
-                                    children: [
-                                      Image.asset('assets/images/campaign_image.png', width: 253,),
-                                      Positioned(
-                                        top: 10, right: 10,
-                                        child: SvgPicture.asset('assets/svgs/love_icon.svg'),
-                                      )
-                                    ],
-                                  ),
+                                    Stack(
+                                      children: [
+                                        Hero(
+                                          tag: "campaign_${index}_image",
+                                          child: Image.asset('assets/images/campaign_image.png', width: 253,)),
+                                        Positioned(
+                                          top: 10, right: 10,
+                                          child: SvgPicture.asset('assets/svgs/love_icon.svg'),
+                                        )
+                                      ],
+                                    ),
 
-                                  const SizedBox(height: 11,),
-                                  Row(
-                                    children: [
-                                      const Expanded(
-                                        child: Text("Help sarah to defeat cancer haha", style: TextStyle(
-                                            fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black
-                                        ), overflow: TextOverflow.ellipsis,),
-                                      ),
-                                      const SizedBox(width: 24,),
-
-                                      OutlinedButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                            builder: (context) {
-                                              return const DashboardScreen();
-                                            },
-                                          ));
-                                        },
-
-                                        style: ButtonStyle(
-                                            backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                                            padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 4)),
-                                            elevation: MaterialStateProperty.all(0),
-                                            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(10),
-                                                side: BorderSide(
-                                                    color: AppColors.whiteColor,
-                                                    width: 1
-                                                )
-                                            )),
-                                            side: MaterialStateProperty.all(BorderSide(
-                                                color: AppColors.whiteColor,
-                                                width: 1
-                                            ))
+                                    const SizedBox(height: 11,),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Material(
+                                            child: Hero(
+                                              tag: "campaign_${index}_title",
+                                              child: const Text("Help sarah to defeat cancer haha", style: TextStyle(
+                                                  fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black
+                                              ), overflow: TextOverflow.ellipsis,),
+                                            ),
+                                          ),
                                         ),
-                                        child: Center(
-                                          child: Text("Login as Guest", style: TextStyle(
-                                              fontSize: 15, fontWeight: FontWeight.w500, color: AppColors.whiteColor
-                                          ),),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  const SizedBox(height: 12,),
+                                        const SizedBox(width: 24,),
 
-                                  const Text("Lorem ipsum dolor sit amet, adipisci consectetur adipisci ipsum dolor.....", style: TextStyle(
-                                      fontSize: 14, fontWeight: FontWeight.w400,
-                                      color: Color(0xFF696969),
-                                      fontFamily: "Metropolis"
-                                  ), maxLines: 2, overflow: TextOverflow.ellipsis,),
-                                  const SizedBox(height: 14,),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: AppColors.primaryColor,
+                                              width: 1
+                                            ),
+                                            borderRadius: BorderRadius.circular(5)
+                                          ),
+                                          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+                                          child: Center(
+                                            child: Text("Medical", style: TextStyle(
+                                              fontSize: 12, fontWeight: FontWeight.w500,
+                                              color: AppColors.primaryColor
+                                            ),),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(height: 12,),
 
-                                  LinearProgressIndicator(
-                                    value: .4,
-                                    minHeight: 4,
-                                    valueColor: AlwaysStoppedAnimation(AppColors.primaryColor),
-                                    backgroundColor: AppColors.primaryColor.withOpacity(.3),
-                                  ),
+                                    const Text("Lorem ipsum dolor sit amet, adipisci consectetur adipisci ipsum dolor.....", style: TextStyle(
+                                        fontSize: 14, fontWeight: FontWeight.w400,
+                                        color: Color(0xFF696969),
+                                        fontFamily: "Metropolis"
+                                    ), maxLines: 2, overflow: TextOverflow.ellipsis,),
+                                    const SizedBox(height: 14,),
 
-                                  const SizedBox(height: 10,),
+                                    LinearProgressIndicator(
+                                      value: .4,
+                                      minHeight: 4,
+                                      valueColor: AlwaysStoppedAnimation(AppColors.primaryColor),
+                                      backgroundColor: AppColors.primaryColor.withOpacity(.3),
+                                    ),
 
-                                  Row(
-                                    children: [
-                                      Text("Raised: \$6000", style: TextStyle(
-                                          fontSize: 14, fontWeight: FontWeight.w400,
-                                          color: AppColors.primaryColor
-                                      ),),
-                                      const Spacer(),
-                                      Text("45%", style: TextStyle(
-                                          fontSize: 12,
-                                          color: AppColors.primaryColor
-                                      ),)
-                                    ],
-                                  )
+                                    const SizedBox(height: 10,),
 
-                                ],
+                                    Row(
+                                      children: [
+                                        Text("Raised: \$6000", style: TextStyle(
+                                            fontSize: 14, fontWeight: FontWeight.w400,
+                                            color: AppColors.primaryColor
+                                        ),),
+                                        const Spacer(),
+                                        Text("45%", style: TextStyle(
+                                            fontSize: 12,
+                                            color: AppColors.primaryColor
+                                        ),)
+                                      ],
+                                    )
+
+                                  ],
+                                ),
                               ),
                             );
                           })
@@ -370,14 +375,78 @@ class DashboardScreen extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 100),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
           ),
 
+          Container(
+            padding: const EdgeInsets.fromLTRB(0, 15, 0, 13),
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  color: const Color(0xFF696969).withOpacity(.10),
+                  width: 1
+                )
+              )
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  children: [
+                    SvgPicture.asset('assets/svgs/home_icon.svg'),
+                    const SizedBox(height: 10,),
+                    Text("Home", style: TextStyle(
+                      fontSize: 12, color: AppColors.primaryColor,
+                      fontWeight: FontWeight.w400
+                    ),)
+                  ],
+                ),
+                Column(
+                  children: [
+                    SvgPicture.asset('assets/svgs/saved_icon.svg'),
+                    const SizedBox(height: 10,),
+                    const Text("Saved", style: TextStyle(
+                      fontSize: 12, color: Colors.black,
+                      fontWeight: FontWeight.w400
+                    ),)
+                  ],
+                ),
+                Column(
+                  children: [
+                    SvgPicture.asset('assets/svgs/settings_icon.svg'),
+                    const SizedBox(height: 10,),
+                    const Text("Settings", style: TextStyle(
+                      fontSize: 12, color: Colors.black,
+                      fontWeight: FontWeight.w400
+                    ),)
+                  ],
+                ),
+                Column(
+                  children: [
+                    SvgPicture.asset('assets/svgs/profile_icon.svg'),
+                    const SizedBox(height: 10,),
+                    const Text("Profile", style: TextStyle(
+                      fontSize: 12, color: Colors.black,
+                      fontWeight: FontWeight.w400
+                    ),)
+                  ],
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
   }
 }
+
+
+// {
+//   "title": "",
+//   "description": "",
+//   "amountNeeded": 100,
+//   "amountRaised": 10,
+// }
